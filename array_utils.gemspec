@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
   s.name = "array_utils"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
   s.summary = "Useful array methods and out-of-bounds index handler"
-  s.description = <<~DESC
+  s.description = <<-DESC
     The default Ruby Array class allows inserting into an array at an that
     doesn't exist. For example, a user may do this `array[2938] = 48` when the
     array contains only about six (6) elements. This causes the the array to now
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
     There are other useful methods added on top of the Array class for common tasks.
   DESC
 
-  s.authors = ["Maxwell Nana Forson"]
+  s.authors = [ "Maxwell Nana Forson" ]
   s.email = "maxwellnanaforson@gmail.com"
 
   s.files = Dir["lib/**/*.rb"]
