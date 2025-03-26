@@ -1,17 +1,14 @@
 Gem::Specification.new do |s|
   s.name = "array_utils"
-  s.version = "0.0.2"
+  s.version = "0.0.3"
   s.summary = "Useful array methods and out-of-bounds index handler"
   s.description = <<-DESC
-    The default Ruby Array class allows inserting into an array at an that
-    doesn't exist. For example, a user may do this `array[2938] = 48` when the
-    array contains only about six (6) elements. This causes the the array to now
-    contain 2,000 plus of nil elements. The goal is to avoid this by intelligently
-    appending to the end of the array when such action is performed.
+    A simple Ruby gem that handles the issue with Ruby’s Array class when
+    inserting an element at an index greater than the current array size.
+    It handles this by intelligently appending the result to the end of the
+    array instead of creating a sparse array.
 
-    Also, invalid negative indexes will throw an `IndexError` exception as usual.
-
-    There are other useful methods added on top of the Array class for common tasks.
+    It also includes some other useful Array methods for common uses.
   DESC
 
   s.authors = [ "Maxwell Nana Forson" ]
