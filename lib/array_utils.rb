@@ -47,4 +47,40 @@ class Array
   def sparse?(threshold = 0.5)
     flatten.count(nil).to_f / flatten.size > threshold
   end
+
+  # Returns a new array where all `nil` values are removed.
+  #
+  # If an element is an array, it is compacted (removing `nil` values)
+  # before being added. This makes it more effective than the default `#compact`
+  # method which only works with 1D arrays.
+  #
+  # @return [Array] A new array with `nil` values removed.
+  def densify
+    densified_array = []
+
+    each do |elem|
+      next unless elem
+
+      if elem.is_a? Array
+        nested = elem.densify
+        # skip empty arrays after removing nil values
+        densified_array << nested unless nested.empty?
+      else
+        densified_array << elem
+      end
+    end
+
+    densified_array
+  end
+
+  # Modifies the array in place by removing all `nil` values.
+  #
+  # If an element is an array, it is compacted (removing `nil` values)
+  # before being added. This makes it more effective than the default `#compact`
+  # method which only works with 1D arrays.
+  #
+  # @return [self] The modified array.
+  def densify!
+    replace(densify)
+  end
 end

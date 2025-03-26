@@ -80,3 +80,42 @@ describe "ArrayUtils#sparse?" do
     assert_equal [ 1, 2, 3, 4 ].sparse?, false
   end
 end
+
+describe "ArrayUtils#densify" do
+  it "returns an array with all nil values removed" do
+    assert_equal [ 1, nil, nil, 4 ].densify, [ 1, 4 ]
+  end
+
+  it "handles nested arrays by compacting them" do
+    assert_equal [ 1, [ nil, 2 ], nil, 4 ].densify, [ 1, [ 2 ], 4 ]
+  end
+end
+
+describe "ArrayUtils#densify!" do
+  it "modifies the array in place by removing all nil values" do
+    array = [ 1, nil, nil, 4 ]
+    array.densify!
+    assert_equal array, [ 1, 4 ]
+  end
+
+  it "handles nested arrays by compacting them in place" do
+    array = [ 1, [ nil, 2 ], nil, 4 ]
+    array.densify!
+    assert_equal array, [ 1, [ 2 ], 4 ]
+  end
+
+  it "handles deeply nested all nil arrays and removes nil values" do
+    array = [ nil, [ nil, nil ], nil, [ [ nil, nil ], nil ] ]
+    array.densify!
+    assert_equal array, []
+  end
+
+  it "handles deeply nested sparse arrays with different data" do
+    array = [
+      1, nil, [ 2, nil, [ nil, 3, [ nil, nil ], 4 ], nil ], [], nil,
+      [ nil ]
+    ]
+    array.densify!
+    assert_equal array, [ 1, [ 2, [ 3, 4 ] ] ]
+  end
+end
