@@ -25,4 +25,26 @@ class Array
 
     partition(&:odd?)
   end
+
+  # Determines whether an array is "sparse," meaning it contains a significant
+  # proportion
+  # of `nil` values compared to its size.
+  #
+  # @param threshold [Float] The threshold ratio (default: 0.5).
+  #   If the proportion of `nil` values to the array's size exceeds this
+  #   threshold, the array is considered sparse.
+  #
+  # @return [Boolean] `true` if the array is sparse, `false` otherwise.
+  #
+  # @example Basic usage:
+  #   [1, nil, nil, 4, nil].sparse? # => true (more than 50% nil values)
+  #
+  # @example Custom threshold:
+  #   [1, nil, nil, 4, 5].sparse?(0.8) # => false (less than 80% nil values)
+  #
+  # @example Non-sparse array:
+  #   [1, 2, 3, 4, 5].sparse? # => false (no nil values)
+  def sparse?(threshold = 0.5)
+    flatten.count(nil).to_f / flatten.size > threshold
+  end
 end

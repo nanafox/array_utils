@@ -50,3 +50,33 @@ describe "ArrayUtils#split_by_parity" do
     assert_raises(TypeError) { numbers_and_text.split_by_parity }
   end
 end
+
+describe "ArrayUtils#sparse?" do
+  it "returns false for empty arrays" do
+    assert_equal [].sparse?, false
+  end
+
+  it "works with nested arrays that are not sparse" do
+    assert_equal [ [ 1, 2, 3, 4 ], [ 5, nil, 6, 7 ] ].sparse?, false
+  end
+
+  it "works with nested arrays that are sparse" do
+    assert_equal [ [ 1, nil, nil, 4 ], [ 5, nil, nil, nil ] ].sparse?, true
+  end
+
+  it "return true when the array is sparse using default 50%" do
+    assert_equal [ 1, nil, nil, 4, nil ].sparse?, true
+  end
+
+  it "return false when the array is sparse using custom threshold" do
+    assert_equal [ 1, nil, nil, 4, 5 ].sparse?(0.3), true
+  end
+
+  it "return false when the array is not sparse using custom threshold" do
+    assert_equal [ 1, nil, nil, 4, 5 ].sparse?(0.8), false
+  end
+
+  it "returns false when the array is not sparse" do
+    assert_equal [ 1, 2, 3, 4 ].sparse?, false
+  end
+end
