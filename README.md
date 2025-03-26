@@ -46,3 +46,45 @@ array = []
 array[10] = 56
 # => [56] # Appends it to the end of the array
 ```
+
+## Additional Methods
+
+### `sparse?(threshold = 0.5)`
+
+Determines if an array is sparse based on the given threshold.
+
+```ruby
+array = [nil, nil, 3, nil, 5, nil]
+array.sparse?(0.4)  # => true
+array.sparse?(0.8)  # => false
+
+# it works with nested arrays as well (using default 50% threshold)
+sparse_nested_array = [ [ 1, nil, nil, 4 ], [ 5, nil, nil, nil ] ]
+sparse_nested_array.sparse?
+# => true
+
+normal_nested_array = [ [ 1, 2, 3, 4 ], [ 5, nil, 6, 7 ] ]
+normal_nested_array.sparse?
+# => false
+```
+
+### `densify`
+
+Returns a new array where all `nil` values are removed, including from nested arrays.
+
+```ruby
+array = [1, nil, [2, nil, 3], nil, [nil, nil], 4]
+array.densify
+# => [1, [2, 3], 4]
+```
+
+### `densify!`
+
+Modifies the array in place by removing all `nil` values, including from nested arrays.
+
+```ruby
+array = [1, nil, [2, nil, 3], nil, [nil, nil], 4]
+array.densify!
+array
+# => [1, [2, 3], 4]
+```
