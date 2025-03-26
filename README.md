@@ -1,6 +1,6 @@
 # array_utils
 
-[![Gem Version](https://badge.fury.io/rb/array_utils.svg?icon=si%3Arubygems&icon_color=%23adccd2)](https://badge.fury.io/rb/array_utils)
+[![Gem Version](https://badge.fury.io/rb/array_utils.svg)](https://badge.fury.io/rb/array_utils)
 
 ## About
 
